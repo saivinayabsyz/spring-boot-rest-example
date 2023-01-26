@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @RestController
-@RequestMapping(value = "/example/v1/hotels")
+@RequestMapping(value = "/")
 @Api(tags = {"hotels"})
 public class HotelController extends AbstractRestHandler {
 
@@ -40,20 +40,10 @@ public class HotelController extends AbstractRestHandler {
         response.setHeader("Location", request.getRequestURL().append("/").append(createdHotel.getId()).toString());
     }
 
-    @RequestMapping(value = "",
-            method = RequestMethod.GET,
-            produces = {"application/json", "application/xml"})
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get a paginated list of all hotels.", notes = "The list is paginated. You can provide a page number (default 0) and a page size (default 100)")
-    public
-    @ResponseBody
-    Page<Hotel> getAllHotel(@ApiParam(value = "The page number (zero-based)", required = true)
-                                      @RequestParam(value = "page", required = true, defaultValue = DEFAULT_PAGE_NUM) Integer page,
-                                      @ApiParam(value = "Tha page size", required = true)
-                                      @RequestParam(value = "size", required = true, defaultValue = DEFAULT_PAGE_SIZE) Integer size,
-                                      HttpServletRequest request, HttpServletResponse response) {
-        return this.hotelService.getAllHotels(page, size);
-    }
+    @RequestMapping( method = RequestMethod.GET)
+  String index() {
+    return "index";
+  }
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
